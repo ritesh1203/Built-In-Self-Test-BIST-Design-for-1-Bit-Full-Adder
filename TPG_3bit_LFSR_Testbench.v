@@ -11,7 +11,7 @@ module TPG_3bit_LFSR_tb;
         #10 reset = 1'b1;              // release reset                                                                                                                                                                                                                                                                                                                                                                                                            
         $dumpfile("TPG_3bit_LFSR.vcd"); // Monitor signals + VCD dump 
         $dumpvars(0, TPG_3bit_LFSR_tb);
-        $monitor($time, " data_out = %b , complete = %b, reset = %b, clock = %b", data_out, complete, reset, clock);                                                                                                                 , complete, reset, clock);
+        $monitor($time, " data_out = %b , complete = %b, reset = %b, clock = %b", data_out, complete, reset, clock);                                                                                                                 
         #200 $finish;                   // Finish simulation
     end
 endmodule
