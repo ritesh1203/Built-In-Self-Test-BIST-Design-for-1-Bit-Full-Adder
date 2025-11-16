@@ -1,23 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 04.09.2025 18:25:07
-// Design Name: 
-// Module Name: BIST
-// Project Name: BIST
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 `timescale 1ns / 1ps
 module BIST_Controller (clock, reset, testmode, w_x_y, data_out, dataIn, dataOut, fault_detected); 
     input  clock, reset, testmode;
@@ -29,25 +9,18 @@ module BIST_Controller (clock, reset, testmode, w_x_y, data_out, dataIn, dataOut
     wire a, b, cin;
     wire complete;
     wire sum, cout;
-
     // Expected golden signature
     parameter golden_signature = 4'b0011;
-
     // Input selection (Normal vs BIST mode)
-    assign {a, b, cin} = (testmode == 1) ? data_out[2:0] : w_x_y;
-
+    assign {a, b, cin} = testmode ? data_out[2:0] : w_x_y;
     // Group full adder outputs into MISR input
     assign dataIn = {sum, cout};
-
     // LFSR (Test Pattern Generator)
     TPG_3bit_LFSR 	M1 (.data_out(data_out), .complete(complete), .reset(reset), .clock(clock));
-
     // CUT (1-bit Full Adder with fault injection disabled)
     CUT_1bit_full_adder M2 (.a(a), .b(b), .cin(cin), .f1(1'b1), .f2(1'b1), .f3(1'b0), .sum(sum), .cout(cout));
-
     // MISR (Output Response Analyzer)
     ORA_4bit_MISR M3 (.dataIn(dataIn), .reset(reset), .clock(clock), .dataOut(dataOut));
-
     // Fault detection logic
     always @(posedge clock) begin
         if (testmode == 0) begin
