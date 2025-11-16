@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
-module TPG_3bit_LFSR (data_out, complete, reset, clock);
+module TPG_3bit_LFSR (clock, reset, data_out, complete);
+    input  clock, reset;
     output  reg  [2:0] data_out;
     output reg  complete;
-    input  reset, clock;
     reg [2:0] counter;
     always  @(posedge clock or negedge reset)  begin
         if (!reset) begin
