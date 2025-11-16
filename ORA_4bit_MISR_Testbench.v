@@ -6,7 +6,7 @@ module ORA_4bit_MISR_tb;
     initial begin
         clock = 1'b0;
         reset  = 1'b0;
-        always #5 clock = ~clock;
+        always #5 clock = ~ clock;
     	$dumpfile ("ORA_4bit_MISR.vcd");
     	$dumpvars (0, ORA_4bit_MISR_tb);
     	$monitor ($time, "dataIn = %b, reset = %b, clock = %b, dataOut = %b", dataIn, reset, clock, dataOut);
