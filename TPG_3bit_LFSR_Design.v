@@ -11,8 +11,8 @@ module TPG_3bit_LFSR (clock, reset, data_out, complete);
             complete  <= 1'b0;
         end
         else  begin       // Polynomial: x^3 + x + 1
-            data_out[1]  <=  data_out [3];
-            data_out[2]  <=  data_out [1]  ^  data_out [3];
+            data_out[1]  <=  data_out [1]  ^  data_out [3] ;
+            data_out[2]  <=  data_out [1];
             data_out[3]  <=  data_out [2];
             counter  <=  counter + 1;
             if (counter == 3’b110)    // after 7 unique states(0 - 6)
