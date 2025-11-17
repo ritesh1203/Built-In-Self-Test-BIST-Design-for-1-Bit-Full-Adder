@@ -9,7 +9,7 @@ module BIST_Controller (clock, reset, testmode, w_x_y, data_out, dataIn, dataOut
     wire a, b, cin;
     wire complete;
     wire sum, cout;
-    parameter golden_signature = 4'b0011;  // Expected golden signature
+    parameter golden_signature = 4'b1101;  // Expected golden signature
     assign {a, b, cin} = testmode ? data_out[2:0] : w_x_y; // Input selection (Normal vs BIST mode)
     assign dataIn = {sum, cout};  // Group full adder outputs into MISR input
     TPG_3bit_LFSR 	M1 (.clock(clock), .reset(reset), .data_out(data_out), .complete(complete));   // LFSR (Test Pattern Generator)
