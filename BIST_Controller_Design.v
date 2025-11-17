@@ -36,4 +36,3 @@ module BIST_Controller (clock, reset, testmode, w_x_y, data_out, dataIn, dataOut
         end
     end
 endmodule
-
