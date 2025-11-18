@@ -27,6 +27,9 @@ A	B	Cin	Sum	Cout
 1	0	1	0	1
 1	1	0	0	1
 1	1	1	1	1
+
+
+
 3. BIST Architecture
 
 The typical BIST structure has three main blocks:
