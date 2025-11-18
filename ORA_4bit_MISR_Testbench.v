@@ -16,13 +16,13 @@ module ORA_4bit_MISR_tb;
     	$monitor($time, "datain = %b, reset = %b, clock = %b, dataout_ora = %b", datain, reset, clock, dataout_ora);
         datain = 2'b00;       // Initialize inputs (Sum=0, Cout=0)
         // Apply test patterns (Sum,Cout)
-        #10 datain = 2'b01;   // Cout=0, Sum=1 
-        #10 datain = 2'b10;   // Cout=1, Sum=0 
-        #10 datain = 2'b11;   // Cout=1, Sum=1 
-        #10 datain = 2'b10;   // Cout=1, Sum=0 
-        #10 datain = 2'b10;   // Cout=1, Sum=0 
-        #10 datain = 2'b01;   // Cout=0, Sum=1 
-        #10 datain = 2'b01;   // Cout=0, Sum=1 
+        #10 datain = 2'b10;   // Sum=1, Cout=0
+        #10 datain = 2'b01;   // Sum=0, Cout=1 
+        #10 datain = 2'b11;   // Sum=1, Cout=1
+        #10 datain = 2'b01;   // Sum=0, Cout=1 
+        #10 datain = 2'b01;   // Sum=0, Cout=1 
+        #10 datain = 2'b10;   // Sum=1, Cout=0 
+        #10 datain = 2'b10;   // Sum=1, Cout=0 
         #100 $finish;
     end
 endmodule
