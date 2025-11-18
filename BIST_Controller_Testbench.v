@@ -1,26 +1,27 @@
 `timescale 1ns / 1ps
 module BIST_Controller_tb;
-reg clock, reset, testmode;
-reg [2:0] w_x_y;   // {a, b, cin}
-wire [2:0] data_out;
-wire [1:0] dataIn;
-wire [3:0] dataOut;
-wire fault_detected; 
-// Instantiate the Unit Under Test (DUT)
-BIST_Controller DUT (.clock(clock), .reset(reset), .testmode(testmode), .w_x_y(w_x_y), .data_out(data_out), .dataIn(dataIn), .dataOut(dataOut), .fault_detected(fault_detected));
-initial begin
-	$dumpfile("BIST_Controller.vcd");
-	$dumpvars(0, BIST_Controller_tb);
-	$monitor($time, "clock = %b, reset = %b, testmode = %b, w_x_y = %b, data_out = %b, dataIn = %b, dataOut = %b, fault_detected = %b", clock, reset, testmode, w_x_y, data_out, dataIn, dataOut, fault_detected);
-    clock = 1'b0;
-    reset = 1'b0;
-    testmode = 1'b0;
-	always #5 clock = ~ clock;
-    w_x_y = 3'b000;    // Apply normal mode inputs
-	#10 reset = 1'b1;
-    w_x_y = 3'b101;   // a=1, b=0, cin=1
-    #20;
-    testmode = 1'b1;  // Enable testmode (BIST starts)
-    #100  $finish;   // Finish simulation   
-end 
+	reg clock, reset, testmode;
+	reg  [3:1] w_x_y;   // {a, b, cin}
+	wire [3:1] dataout_tpg;
+	wire [1:0] datain;
+	wire [4:1] dataout_ora;
+	wire fault_detected; 
+	// Instantiate the Unit Under Test (DUT)
+	BIST_Controller DUT (.clock(clock), .reset(reset), .testmode(testmode), .w_x_y(w_x_y), .dataout_tpg(dataout_tpg), .datain(datain), .dataout_ora(dataout_ora), .fault_detected(fault_detected));
+	initial begin
+		reset = 1'b0;
+		#10 reset = 1'b1;
+		clock = 1'b0;
+		forever #5 clock = ~ clock;
+	end
+	initial begin
+		$dumpfile("BIST_Controller.vcd");
+		$dumpvars(0, BIST_Controller_tb);
+		testmode = 1'b0;
+    	w_x_y = 3'b000;    // Apply normal mode inputs
+    	w_x_y = 3'b101;   // a=1, b=0, cin=1
+    	#20 testmode = 1'b1;  // Enable testmode (BIST starts)
+    	#70 testmode = 1'b0;
+    	#100  $finish;   // Finish simulation
+    end    
 endmodule
