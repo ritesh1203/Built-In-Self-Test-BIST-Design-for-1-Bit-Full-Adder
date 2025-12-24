@@ -10,8 +10,8 @@ module ORA_4bit_MISR (datain, clock, reset, dataout_ora);
 		else begin
 			dataout_ora[4] <= dataout_ora[3];
 			dataout_ora[3] <= dataout_ora[2];
-			dataout_ora[2] <= dataout_ora[4] ^ dataout_ora[1] ^ datain[0];  // feedback + dataIn[1]
-			dataout_ora[1] <= dataout_ora[4] ^ datain[1];                    // feedback + dataIn[0]
+			dataout_ora[2] <= dataout_ora[4] ^ dataout_ora[1] ^ datain[0];  // feedback + dataIn[0]
+			dataout_ora[1] <= dataout_ora[4] ^ datain[1];                    // feedback + dataIn[1]
 		end
 	end
 endmodule
